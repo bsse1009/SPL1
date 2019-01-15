@@ -1,40 +1,46 @@
 #include <iostream>
 
 using namespace std;
-/*
+
+
 void construct_transition_table (string *state,double **transition_probability,int n)
 {
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            cout << "probability of " << state [i] << " " << state [j] << endl;
+            cout << "probability of " << state [i] << " then " << state [j] << endl;
             cin >> transition_probability [i][j];
         }
     }
 }
 
-void construct_emision_table (string *state, string *expression, double *emision_probability[], int n, int m)
+
+void construct_emision_table (string *state, string *expression, double **emision_probability, int n, int m)
 {
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            cout << "probability of " << state [i] << " " << expression [j] << endl;
+            cout << "probability of if " << state [i] << " then " << expression [j] << endl;
             cin >> emision_probability [i][j];
         }
     }
 }
 
-void print (string state, double* transition_probability [],int n)
+
+void print (string *state, double** transition_probability ,int n)
 {
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
-            cout << "probability of " << state [i] << " " << state [j] << "is : "<< transition_probability [i][j];
+            cout << " probability of " << state [i] << " " << state [j] << " is : "<< transition_probability [i][j];
     }
+    cout << endl;
 }
-*/
+
+
+
 int main ()
 {
     int n,m;
@@ -44,8 +50,13 @@ int main ()
     cin >> m;
     string expression [m];
     string state[n];
-    double transition_probability [n][n];
-    double emision_probability [n][m];
+    double **transition_probability  = new double*[n];
+    
+    for(int i=0;i<n;i++)   transition_probability[i] = new double[n];
+     
+    double **emision_probability = new double *[n];
+    
+    for(int i=0;i<n;i++)   emision_probability [i] = new double[m];
 
     cout << "Enter the State name \n";
 
@@ -56,36 +67,33 @@ int main ()
 
     for (int i = 0; i < m; i++)
         cin >> expression [i];
-/*
+
     construct_transition_table (state,transition_probability,n);
     construct_emision_table (state, expression, emision_probability, n, m);
     print (state, transition_probability, n);
-*/
-// transition probability table
-    cout << "Construct transition table :\n ";
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            cout << "probability of " << state [i] << " then " << state [j] << endl;
-            cin >> transition_probability [i][j];
-        }
-    }
 
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            cout << "probability of if " << state [i] << " then " << expression [j] << endl;
-            cin >> emision_probability [i][j];
-        }
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-            cout << "probability of " << state [i] << " " << state [j] << " is : "<< transition_probability [i][j];
-    }
-
+	string emision ;
+	double probabilityOfEmision;
+	double probabilityOfState [n] = {0};
+	
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			probabilityOfState [i] += .5*(transition_probability [j] [i] );
+		}
+		
+		cout << "probability of state " << i+1 << " = " << probabilityOfState [i] << endl;
+	}
+	cout << "Enter the current emision : \n";
+	cin >> emision;
+	
+	for (int i = 0; i < m; i++)
+		if (expression [i] == emision)
+		{
+			
+		}
+		
+	
     return 0;
 }
