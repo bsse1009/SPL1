@@ -75,7 +75,7 @@ int main ()
 	string emision ;
 	double probabilityOfEmision;
 	double probabilityOfState [n] = {0};
-	
+	double probabilityOfDay1, probabilityOfDay2;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -91,9 +91,13 @@ int main ()
 	for (int i = 0; i < m; i++)
 		if (expression [i] == emision)
 		{
-			
+			probabilityOfDay1 = (emision_probability [0][i]*probabilityOfState [0])/(.5 * (emision_probability [0][i] + emision_probability [1][i]));
+			probabilityOfDay2 = (emision_probability [1][i]*probabilityOfState [0])/(.5 * (emision_probability [0][i] + emision_probability [1][i]));
 		}
 		
+	
+	cout << "Probability of " << state [0] << "is : " << probabilityOfDay1 << endl;
+	cout << "Probability of " << state [1] << "is : " << probabilityOfDay2 << endl;
 	
     return 0;
 }
